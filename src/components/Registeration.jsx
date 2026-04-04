@@ -1,0 +1,177 @@
+// components/Registration.jsx
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import axios from 'axios';
+
+const Registration = () => {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    mobile: '',
+    city: ''
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
+
+  // Only Marathi content
+  const registerTitle = "महोत्सवात सहभागी व्हा";
+  const registerSubtitle = "धर्मवीर संभाजी महाराज जयंती महोत्सव २०२६";
+
+  const fullNameLabel = "पूर्ण नाव";
+  const emailLabel = "ईमेल";
+  const mobileLabel = "मोबाइल नंबर";
+  const cityLabel = "शहर";
+
+  const submitBtn = "नोंदणी करा";
+  const submittingBtn = "नोंदणी होत आहे...";
+
+  const footerNote = "तुमची सहभागिता स्वराज्याची ज्योत जागृत ठेवेल";
+
+  // Google Apps Script Web App URL (Replace with your actual deployed URL)
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_DEPLOYED_WEB_APP_URL/exec";
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!formData.fullName || !formData.email || !formData.mobile) {
+      setStatus({ type: 'error', message: 'कृपया सर्व आवश्यक फील्ड भरा' });
+      return;
+    }
+
+    setLoading(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const response = await axios.post("https://script.google.com/macros/s/AKfycbwRu2mzJ999HBbkewvfwijE-Ir6OHJhqtLsa3ozSFqqYen-1TqeY9Ix3ACHHX-2cNzj/execg", formData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+
+      if (response.data.result === 'success') {
+        setStatus({ 
+          type: 'success', 
+          message: '🎉 नोंदणी यशस्वी झाली! आपले स्वागत आहे.' 
+        });
+        
+        // Reset form
+        setFormData({
+          fullName: '',
+          email: '',
+          mobile: '',
+          city: ''
+        });
+      } else {
+        setStatus({ type: 'error', message: response.data.message || 'काहीतरी चूक झाली' });
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setStatus({ 
+        type: 'error', 
+        message: 'सर्व्हरशी कनेक्शन होऊ शकले नाही. कृपया नंतर प्रयत्न करा.' 
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <section id="register" className="py-16 text-white">
+      <div className="max-w-2xl mx-auto px-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-5xl royal-heading mb-4 text-[#FFD700]">
+            {registerTitle}
+          </h2>
+          <p className="text-xl text-amber-100">
+            {registerSubtitle}
+          </p>
+        </motion.div>
+
+        <motion.form 
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="royal-card p-10 md:p-12 rounded-3xl space-y-8 bg-white/10 backdrop-blur border border-[#FFD700]/30"
+        >
+          <input 
+            type="text"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+            placeholder={fullNameLabel} 
+            className="w-full bg-white/10 border border-white/40 p-6 rounded-2xl text-white placeholder:text-amber-200 focus:outline-none focus:border-[#FFD700] focus:bg-white/20" 
+            required
+          />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <input 
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder={emailLabel} 
+              className="w-full bg-white/10 border border-white/40 p-6 rounded-2xl text-white placeholder:text-amber-200 focus:outline-none focus:border-[#FFD700] focus:bg-white/20" 
+              required
+            />
+            <input 
+              type="tel"
+              name="mobile"
+              value={formData.mobile}
+              onChange={handleChange}
+              placeholder={mobileLabel} 
+              className="w-full bg-white/10 border border-white/40 p-6 rounded-2xl text-white placeholder:text-amber-200 focus:outline-none focus:border-[#FFD700] focus:bg-white/20" 
+              required
+            />
+          </div>
+
+          <div>
+            <textarea
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              placeholder={cityLabel}
+              className="w-full bg-white/10 border border-white/40 p-6 rounded-2xl text-white placeholder:text-amber-200 focus:outline-none focus:border-[#FFD700] focus:bg-white/20 resize-none h-24"
+            />
+          </div>
+
+          <motion.button 
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            type="submit"
+            disabled={loading}
+            className="shine-btn w-full py-7 bg-gradient-to-r from-[#FFD700] to-amber-400 text-[#8B4513] rounded-3xl text-2xl font-bold shadow-lg shadow-orange-900/50 hover:brightness-110 disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            {loading ? submittingBtn : submitBtn}
+          </motion.button>
+
+          {status.message && (
+            <p className={`text-center text-sm font-medium ${
+              status.type === 'success' ? 'text-green-400' : 'text-red-400'
+            }`}>
+              {status.message}
+            </p>
+          )}
+
+          <p className="text-center text-amber-200 text-sm">
+            {footerNote}
+          </p>
+        </motion.form>
+      </div>
+    </section>
+  );
+};
+
+export default Registration;
