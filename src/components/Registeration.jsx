@@ -33,8 +33,8 @@ const Registration = () => {
   const submittingBtn = isMarathi ? "नोंदणी होत आहे..." : "Submitting...";
 
  const successMessage = isMarathi 
-  ? "🎉 नोंदणी यशस्वी झाली! आपल्याला पुष्टीकरण ईमेल पाठवला गेला आहे. १४ मे रोजी जनता राजा मैदान, संगमनेर येथे 'प्रतापगड पर्व' हे जिवंत नाटक पाहण्यासाठी आवर्जून यावे. धन्यवाद!"
-  : "🎉 Registration Successful! A confirmation email has been sent to you. Please join us on 14th May at Janta Raja Maidan, Sangamner for the live play 'Pratapgad Parv'. Thank you!";
+  ? "🎉 नोंदणी यशस्वी झाली! १४ मे रोजी जनता राजा मैदान, संगमनेर येथे 'प्रतापगड पर्व' हे जिवंत नाटक पाहण्यासाठी आवर्जून यावे. धन्यवाद!"
+  : "🎉 Registration Successful!. Please join us on 14th May at Janta Raja Maidan, Sangamner for the live play 'Pratapgad Parv'. Thank you!";
   const errorRequired = isMarathi 
     ? "कृपया सर्व आवश्यक फील्ड भरा" 
     : "Please fill all required fields";
