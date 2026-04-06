@@ -4,10 +4,10 @@
 @import "tailwindcss";
 
 /* 2. Define fonts using @theme (Tailwind v4 recommended way) */
-@theme {
+/* @theme {
   --font-inknut: "Inknut Antiqua", serif;
   --font-poppins: "Poppins", sans-serif;
 
   /* Optional: Make Poppins default for English */
-  --font-sans: "Poppins", system-ui, sans-serif;
-}
+  /* --font-sans: "Poppins", system-ui, sans-serif; */
+/* } */ 

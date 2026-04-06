@@ -6,19 +6,23 @@ import { useLanguage } from './LanguageContext';
 const Hero = () => {
   const { isMarathi } = useLanguage();
 
-  // Only Marathi content
-  const jayantiDate = "१४ मे २०२६";
+  // Bilingual Content
+  const jayantiDate = isMarathi ? "१४ मे २०२६" : "14 May 2026";
 
-  const heroTitle1 = "धर्मवीर";
-  const heroTitle2 = "संभाजी";
+  const heroSubtitle = isMarathi 
+    ? "स्वराज्य आणि धर्माचे निर्भय रक्षक" 
+    : "Fearless Protector of Swarajya and Dharma";
 
-  const heroSubtitle = "स्वराज्य आणि धर्माचे निर्भय रक्षक";
+  const joinMahotsav = isMarathi ? "महोत्सवात सहभागी" : "Join the Mahotsav";
 
-  const joinMahotsav = "महोत्सवात सहभागी";
+  const exploreLegacy = isMarathi ? "वारसा जाणून घ्या" : "Explore the Legacy";
 
-  const exploreLegacy = "वारसा जाणून घ्या";
+  const scrollText = isMarathi ? "खाली स्क्रोल करा" : "Scroll Down";
 
-  const scrollText = "खाली स्क्रोल करा";
+  // Font classes
+  const headingClass = isMarathi ? "tracking-widest" : "tracking-widest-english";   // Royal for headings
+  const bodyClass = "body-text";   
+  const paragraph = "royal-pararaph";                                
 
   return (
     <section
@@ -33,7 +37,6 @@ const Hero = () => {
             backgroundImage: `url('https://upload.wikimedia.org/wikipedia/commons/7/7b/Sambhaji_Maharaj.jpg')`
           }}
         />
-        {/* Dark Overlay for better readability */}
         <div className="absolute inset-0 bg-black/60" />
       </div>
 
@@ -65,49 +68,51 @@ const Hero = () => {
           transition={{ duration: 1.4, ease: "easeOut" }}
           className="text-center"
         >
-          {/* Date Badge - Saffron Border Only */}
+          {/* Date Badge */}
           <div className="inline-flex items-center gap-3 
                 px-6 py-2.5 rounded-full 
                 border-2 border-[#FF9933] 
                 bg-black/40 backdrop-blur-xl 
                 mb-6 shadow-xl">
             <span className="text-2xl">🚩</span>
-            <span className="text-xl font-bold tracking-widest text-[#FFEECC] font-serif">
+            <span className={`text-xl font-bold tracking-widest text-[#FFEECC] ${headingClass}`}>
               {jayantiDate}
             </span>
           </div>
 
-          {/* Main Title with Vertical Gap on Mobile */}
+          {/* Main Title */}
           <div className="mb-6 md:mb-8 flex flex-col items-center">
             {/* Desktop / Tablet: Single Line */}
-            <h1 className="hidden md:block text-6xl lg:text-7xl py-10 xl:text-[5.8rem] 
+            <h1 className={`hidden md:block text-6xl lg:text-7xl py-10 xl:text-[4.6rem] 
                          leading-none font-bold tracking-wider 
                          bg-gradient-to-r from-[#FFD700] via-[#FFCC33] to-[#FF9933] 
                          bg-clip-text text-transparent 
-                         drop-shadow-[0_10px_40px_rgba(255,153,51,0.8)]">
-              धर्मवीर संभाजी
+                         drop-shadow-[0_10px_40px_rgba(255,153,51,0.8)] ${headingClass}`}>
+              {isMarathi 
+                ? "धर्मरक्षक संभाजी महाराज प्रतिष्ठान" 
+                : "DharmaRakshak Sambhaji Maharaj Pratishthan"}
             </h1>
 
-            {/* Mobile: Two Lines with Good Vertical Gap */}
+            {/* Mobile: Two Lines */}
             <div className="md:hidden flex flex-col items-center">
-              <h1 className="text-[3rem] sm:text-5xl font-bold tracking-wider 
+              <h1 className={`text-[3rem] sm:text-5xl font-bold tracking-wider 
                            bg-gradient-to-r from-[#FFD700] via-[#FFCC33] to-[#FF9933] 
                            bg-clip-text text-transparent py-2
-                           drop-shadow-[0_6px_25px_rgba(255,153,51,0.7)]">
-                {heroTitle1}
+                           drop-shadow-[0_6px_25px_rgba(255,153,51,0.7)] ${headingClass}`}>
+                {isMarathi ? "धर्मरक्षक संभाजी" : "Dharma Rakshak Sambhaji"}
               </h1>
-              <h1 className="text-[3.4rem] sm:text-6xl font-bold tracking-wider 
+              <h1 className={`text-[2.8rem] sm:text-6xl font-bold tracking-wider 
                            bg-gradient-to-r from-[#FFD700] via-[#FFCC33] to-[#FF9933] 
                            bg-clip-text text-transparent 
-                           drop-shadow-[0_10px_40px_rgba(255,153,51,0.8)]">
-                {heroTitle2}
+                           drop-shadow-[0_10px_40px_rgba(255,153,51,0.8)] ${headingClass}`}>
+                {isMarathi ? "महाराज प्रतिष्ठान" : "Maharaj Pratishthan"}
               </h1>
             </div>
           </div>
 
-          {/* Subtitle */}
-          <p className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-wide 
-                       text-[#FFEECC] max-w-3xl mx-auto mb-16 px-4 leading-relaxed">
+          {/* Subtitle - Use body-text (Poppins) */}
+          <p className={`text-2xl sm:text-3xl md:text-4xl font-medium tracking-wide 
+                       text-[#FFEECC] max-w-3xl mx-auto mb-16 px-4 leading-relaxed ${bodyClass}`}>
             {heroSubtitle}
           </p>
 
@@ -118,13 +123,12 @@ const Hero = () => {
               href="#register"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.96 }}
-              className="shine-btn group w-full sm:w-auto inline-flex items-center justify-center gap-4 
+              className={`shine-btn group w-full sm:w-auto inline-flex items-center justify-center gap-4 
                          bg-gradient-to-r from-[#FF9933] to-[#CC5500] hover:from-[#FFAA33] hover:to-[#FF7700]
                          text-white px-6 py-4 rounded-3xl text-2xl font-bold shadow-2xl 
-                         shadow-[#FF9933]/60 hover:shadow-[#FFD700]/80 transition-all duration-300"
+                         shadow-[#FF9933]/60 hover:shadow-[#FFD700]/80 transition-all duration-300 ${paragraph}`}
             >
               {joinMahotsav}
-              {/* <span className="text-4xl group-hover:rotate-12 transition-transform duration-300">🛡️</span> */}
             </motion.a>
 
             {/* Secondary Button */}
@@ -132,9 +136,9 @@ const Hero = () => {
               href="#legacy"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.96 }}
-              className="w-full sm:w-auto border-2 border-[#FFD700] hover:border-[#FFEECC] 
+              className={`w-full sm:w-auto border-2 border-[#FFD700] hover:border-[#FFEECC] 
                          hover:bg-[#FFD700]/10 px-12 py-4 rounded-3xl text-xl font-semibold 
-                         text-[#FFEECC] transition-all duration-300"
+                         text-[#FFEECC] transition-all duration-300 ${paragraph}`}
             >
               {exploreLegacy}
             </motion.a>
@@ -150,7 +154,7 @@ const Hero = () => {
         className="hidden md:flex absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex-col items-center"
       >
         <div className="w-px h-20 bg-gradient-to-b from-transparent via-[#FFCC33] to-transparent" />
-        <p className="text-[#FFEECC]/70 text-sm tracking-widest mt-4 font-medium">
+        <p className={`text-[#FFEECC]/70 text-sm tracking-widest mt-4 font-medium ${[paragraph, bodyClass].join(' ')}`}>
           {scrollText}
         </p>
       </motion.div>

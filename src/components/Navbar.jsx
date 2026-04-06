@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from './LanguageContext';
 
-const Navbar = ({ onRegisterClick }) => {   // ← Added prop
+const Navbar = ({ onRegisterClick }) => {
   const { isMarathi, toggleLanguage } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -28,7 +28,8 @@ const Navbar = ({ onRegisterClick }) => {   // ← Added prop
         { name: "Register", href: "#register" },
       ];
 
-  const languageBtnText = isMarathi ? "EN" : "मराठी";
+  // Font Class for royal look
+  const fontClass = isMarathi ? "tracking-widest" : "royal-english";
 
   // Smooth Scroll Function
   const scrollToSection = (href) => {
@@ -56,17 +57,21 @@ const Navbar = ({ onRegisterClick }) => {   // ← Added prop
             onClick={() => scrollToSection('#hero')}
           >
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-widest text-[#FFD700]">
-                {isMarathi ? "छत्रपती संभाजी" : "Chhatrapati Sambhaji"}
+              <h1 className={`text-2xl sm:text-3xl font-bold tracking-widest text-[#FFD700] ${fontClass}`}>
+                {isMarathi 
+                  ? "धर्मरक्षक संभाजी महाराज प्रतिष्ठान" 
+                  : "DharmaRakshak Sambhaji Maharaj Pratishthan"}
               </h1>
               <p className="text-[10px] sm:text-xs tracking-[3px] text-amber-300 -mt-1">
-                {isMarathi ? "धर्मवीर • स्वराज्यरक्षक" : "Dharmaveer • Swarajya Protector"}
+                {isMarathi 
+                  ? "धर्मवीर • स्वराज्यरक्षक" 
+                  : "Dharmaveer • Swarajya Protector"}
               </p>
             </div>
           </div>
 
           {/* Desktop Title */}
-          <div className="hidden lg:block text-xl xl:text-2xl font-bold tracking-widest text-[#FFD700]">
+          <div className={`hidden lg:block text-xl xl:text-2xl font-bold tracking-widest text-[#FFD700] ${fontClass}`}>
             {navTitle}
           </div>
 
@@ -81,18 +86,20 @@ const Navbar = ({ onRegisterClick }) => {   // ← Added prop
                 {link.name}
               </button>
             ))}
-{/* 
+
+            {/* Language Toggle Button (Visible on Desktop/Laptop) */}
             <button
               onClick={toggleLanguage}
-              className="px-6 py-2.5 rounded-full font-bold transition-all text-sm 
-                bg-white/10 hover:bg-white/20 border border-[#FFD700]/50 text-amber-100 hover:text-white"
+              className={`px-6 py-2.5 rounded-full font-bold transition-all text-sm 
+                bg-white/10 hover:bg-white/20 border border-[#FFD700]/50 
+                text-amber-100 hover:text-white ${fontClass}`}
             >
-              {languageBtnText}
-            </button> */}
+              {isMarathi ? "EN" : "मराठी"}
+            </button>
 
-            {/* Register Now Button - Now opens Modal */}
+            {/* Register Button */}
             <button
-              onClick={onRegisterClick}        // ← Changed to open modal
+              onClick={onRegisterClick}
               className="shine-btn bg-gradient-to-r from-[#FFD700] to-amber-400 hover:from-amber-400 hover:to-[#FFD700] 
                          text-[#8B4513] px-12 py-2 rounded-full font-bold shadow-lg shadow-orange-900/50 transition-all text-base"
             >
@@ -100,7 +107,7 @@ const Navbar = ({ onRegisterClick }) => {   // ← Added prop
             </button>
           </div>
 
-          {/* Hamburger */}
+          {/* Hamburger Menu (Mobile Only) */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)} 
             className="md:hidden p-2"
@@ -134,6 +141,7 @@ const Navbar = ({ onRegisterClick }) => {   // ← Added prop
                 </button>
               ))}
 
+              {/* Language Toggle in Mobile Menu */}
               <button
                 onClick={() => {
                   toggleLanguage();
@@ -144,7 +152,7 @@ const Navbar = ({ onRegisterClick }) => {   // ← Added prop
                 {isMarathi ? "Switch to English" : "मराठीत स्विच करा"}
               </button>
 
-              {/* Mobile Register Button - Opens Modal */}
+              {/* Mobile Register Button */}
               <button
                 onClick={() => {
                   onRegisterClick();
