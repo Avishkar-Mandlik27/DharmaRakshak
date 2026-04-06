@@ -43,7 +43,7 @@ const Registration = () => {
     ? "तुमची सहभागिता स्वराज्याची ज्योत जागृत ठेवेल" 
     : "Your participation will keep the flame of Swarajya alive";
 
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUVd40u8mXzp6k20Fjr0x7fNtw6Oafpw6TWcW4MbA12NCrH_QJ45vXejpH0xcQeyKn/exec";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1ee_o6cUV1j9HZX7ucTK3ZiThplITwc6jdTnPhm-uLEFvU9Xw-c9tssyKUPIl9sy2/exec";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
