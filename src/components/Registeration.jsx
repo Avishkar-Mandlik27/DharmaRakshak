@@ -36,11 +36,11 @@ const Registration = () => {
   const successMessage = isMarathi 
     ? "🎉 नोंदणी यशस्वी झाली! \n\n" +
       "आपली नोंदणी यशस्वीरीत्या पूर्ण झाली आहे. \n" +
-      "आपण १४ मे २०२६ रोजी सकाळी जाणता राजा मैदान, संगमनेर येथे आयोजित 'प्रतापगड पर्व' या जिवंत नाटकासाठी नक्की उपस्थित राहा. \n\n" +
+      "आपण १४ मे २०२६ रोजी संध्याकाळी ६ वाजता जाणता राजा मैदान, संगमनेर येथे आयोजित 'प्रतापगड पर्व' या जिवंत नाटकासाठी नक्की उपस्थित राहा. \n\n" +
       "धन्यवाद! स्वराज्याची ज्योत आपल्या सहभागाने अधिक तेजस्वी होईल 🔥"
     : "🎉 Registration Successful!\n\n" +
       "Thank you for registering! 🎊\n" +
-      "We look forward to welcoming you on 14th May 2026 at Janta Raja Maidan, Sangamner for the grand live play 'Pratapgad Parv'.\n\n" +
+      "We look forward to welcoming you on 14th May 2026 at 6:00 PM at Janta Raja Maidan, Sangamner for the grand live play 'Pratapgad Parv'.\n\n" +
       "Your presence will help keep the spirit of Swarajya alive! 🔥";
 
   const errorRequired = isMarathi 
